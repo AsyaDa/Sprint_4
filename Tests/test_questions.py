@@ -1,20 +1,11 @@
 import pytest
 import allure
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
 from Pages.main_page import MainPage
 from Pages.base_page import BasePage
 from Pages.order_page import OrderPage
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 class TestQuestions:
-    driver = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
 
     @allure.title("Проверка ответа по клику на вопрос")
     @pytest.mark.parametrize('question_button, question_answer, question_correct_answer', [
@@ -27,28 +18,26 @@ class TestQuestions:
         [MainPage.question_7_button, MainPage.question_7_answer, MainPage.question_7_correct_answer],
         [MainPage.question_8_button, MainPage.question_8_answer, MainPage.question_8_correct_answer],
     ])
-    def test_question(self, question_button, question_answer, question_correct_answer):
-        self.driver.get(MainPage.url)
+    def test_question(self, question_button, question_answer, question_correct_answer, entry):
+        self.driver = entry
         mp = MainPage(self.driver)
         mp.click_on_question_panel(question_button)
         assert mp.get_answer_text_from_panel(question_answer) == question_correct_answer
 
     @allure.title("Проверка перехода по клику на логотип Яндекса")
-    def test_go_to_yandex(self):
-        self.driver.get(MainPage.url)
+    def test_go_to_yandex(self, entry):
+        self.driver = entry
         bp = BasePage(self.driver)
         bp.click_on_yandex_logo(BasePage.yandex_logo)
         current_url = self.driver.current_url
         assert current_url == 'https://dzen.ru/?yredirect=true'
 
     @allure.title("Проверка перехода по клику на логотип Самоката")
-    def test_go_to_scooter_main_page(self):
+    def test_go_to_scooter_main_page(self, entry):
+        self.driver = entry
         self.driver.get(OrderPage.url_place_order)
         bp = BasePage(self.driver)
         bp.click_on_scooter_logo(BasePage.scooter_logo)
         current_url = self.driver.current_url
         assert current_url == MainPage.url
 
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
