@@ -1,6 +1,9 @@
 import pytest
 import allure
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 from Pages.main_page import MainPage
 from Pages.order_page import OrderPage
 
@@ -18,7 +21,7 @@ class TestPlaceOrder:
         mp = MainPage(self.driver)
         mp.click_on_accept_cookie_button()
         mp.click_on_order_button(MainPage.order_button_first)
-        assert self.driver.current_url == OrderPage.url_place_order
+        assert WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located(OrderPage.order_page_header))
 
     @allure.title("Проверка перехода по клику на кнопку Заказать снизу")
     def test_go_to_order_page_second_button(self):
@@ -26,7 +29,7 @@ class TestPlaceOrder:
         mp = MainPage(self.driver)
         mp.click_on_accept_cookie_button()
         mp.click_on_order_button(MainPage.order_button_second)
-        assert self.driver.current_url == OrderPage.url_place_order
+        assert WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located(OrderPage.order_page_header))
 
     @allure.title("Проверка размещения заказа на самокат")
     @pytest.mark.parametrize('name, surname, address, metro, telephone, period, comment, color, date', [
