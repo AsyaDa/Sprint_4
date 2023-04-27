@@ -36,10 +36,8 @@ class TestPlaceOrder:
     def test_place_order(self, name, surname, address, metro, telephone, period, comment, color, date):
         self.driver.get(OrderPage.url_place_order)
         page = OrderPage(self.driver)
-        # page.set_order_info("Ася", "Дамбиш", "Москва, ул Ленина, 1", "Сокольники", "89998887755")
         page.set_order_info(name, surname, address, metro, telephone)
         page.click_on_next_step_button()
-        # page.set_arenda_info("тестовый комментарий для курьера", "black", "23.04.2023")
         page.set_arenda_info(period, comment, color, date)
         page.click_on_place_order_button()
         page.click_on_confirm_order_button()

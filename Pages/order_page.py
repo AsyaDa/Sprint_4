@@ -14,8 +14,6 @@ class OrderPage:
     url_place_order = "https://qa-scooter.praktikum-services.ru/order"
     header_arenda = [By.XPATH, './/div[text()="Про аренду"]']
     arenda_period_field = [By.XPATH, '//div[text()="* Срок аренды"]']
-    #arenda_period = [By.XPATH, '//div[text()="сутки"]']
-    # scooter_color = [By.ID, 'black']
     comment_field = [By.XPATH, '//input[@placeholder="Комментарий для курьера"]']
     start_date_field = [By.XPATH, '//input[@placeholder="* Когда привезти самокат"]']
     place_order_button = [By.XPATH, '//button[text()="Назад"]/following-sibling::button']
