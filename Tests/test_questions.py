@@ -38,8 +38,6 @@ class TestQuestions:
         self.driver.get(MainPage.url)
         bp = BasePage(self.driver)
         bp.click_on_yandex_logo(BasePage.yandex_logo)
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'content')))
         current_url = self.driver.current_url
         assert current_url == 'https://dzen.ru/?yredirect=true'
 
