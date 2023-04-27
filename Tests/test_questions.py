@@ -17,21 +17,21 @@ class TestQuestions:
         cls.driver = webdriver.Firefox()
 
     @allure.title("Проверка ответа по клику на вопрос")
-    @pytest.mark.parametrize('question_button, question_answer', [
-        [MainPage.question_1_button, MainPage.question_1_answer],
-        [MainPage.question_2_button, MainPage.question_2_answer],
-        [MainPage.question_3_button, MainPage.question_3_answer],
-        [MainPage.question_4_button, MainPage.question_4_answer],
-        [MainPage.question_5_button, MainPage.question_5_answer],
-        [MainPage.question_6_button, MainPage.question_6_answer],
-        [MainPage.question_7_button, MainPage.question_7_answer],
-        [MainPage.question_8_button, MainPage.question_8_answer],
+    @pytest.mark.parametrize('question_button, question_answer, question_correct_answer', [
+        [MainPage.question_1_button, MainPage.question_1_answer, MainPage.question_1_correct_answer],
+        [MainPage.question_2_button, MainPage.question_2_answer, MainPage.question_2_correct_answer],
+        [MainPage.question_3_button, MainPage.question_3_answer, MainPage.question_3_correct_answer],
+        [MainPage.question_4_button, MainPage.question_4_answer, MainPage.question_4_correct_answer],
+        [MainPage.question_5_button, MainPage.question_5_answer, MainPage.question_5_correct_answer],
+        [MainPage.question_6_button, MainPage.question_6_answer, MainPage.question_6_correct_answer],
+        [MainPage.question_7_button, MainPage.question_7_answer, MainPage.question_7_correct_answer],
+        [MainPage.question_8_button, MainPage.question_8_answer, MainPage.question_8_correct_answer],
     ])
-    def test_question(self, question_button, question_answer):
+    def test_question(self, question_button, question_answer, question_correct_answer):
         self.driver.get(MainPage.url)
         mp = MainPage(self.driver)
         mp.click_on_question_panel(question_button)
-        assert WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(question_answer))
+        assert mp.get_answer_text_from_panel(question_answer) == question_correct_answer
 
     @allure.title("Проверка перехода по клику на логотип Яндекса")
     def test_go_to_yandex(self):

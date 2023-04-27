@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class MainPage:
@@ -16,14 +18,23 @@ class MainPage:
     question_7_button = [By.ID, 'accordion__heading-6']
     question_8_button = [By.ID, 'accordion__heading-7']
 
-    question_1_answer = [By.ID, 'accordion__panel-0']
-    question_2_answer = [By.ID, 'accordion__panel-1']
-    question_3_answer = [By.ID, 'accordion__panel-2']
-    question_4_answer = [By.ID, 'accordion__panel-3']
-    question_5_answer = [By.ID, 'accordion__panel-4']
-    question_6_answer = [By.ID, 'accordion__panel-5']
-    question_7_answer = [By.ID, 'accordion__panel-6']
-    question_8_answer = [By.ID, 'accordion__panel-7']
+    question_1_answer = [By.XPATH, '//div[@id="accordion__panel-0"]/p']
+    question_2_answer = [By.XPATH, '//div[@id="accordion__panel-1"]/p']
+    question_3_answer = [By.XPATH, '//div[@id="accordion__panel-2"]/p']
+    question_4_answer = [By.XPATH, '//div[@id="accordion__panel-3"]/p']
+    question_5_answer = [By.XPATH, '//div[@id="accordion__panel-4"]/p']
+    question_6_answer = [By.XPATH, '//div[@id="accordion__panel-5"]/p']
+    question_7_answer = [By.XPATH, '//div[@id="accordion__panel-6"]/p']
+    question_8_answer = [By.XPATH, '//div[@id="accordion__panel-7"]/p']
+
+    question_1_correct_answer = 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'
+    question_2_correct_answer = 'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.'
+    question_3_correct_answer = 'Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.'
+    question_4_correct_answer = 'Только начиная с завтрашнего дня. Но скоро станем расторопнее.'
+    question_5_correct_answer = 'Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.'
+    question_6_correct_answer = 'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.'
+    question_7_correct_answer = 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'
+    question_8_correct_answer = 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
 
     def __init__(self, driver):
         self.driver = driver
@@ -37,3 +48,8 @@ class MainPage:
 
     def click_on_accept_cookie_button(self):
         self.driver.find_element(*self.accept_cookie_button).click()
+
+    def get_answer_text_from_panel(self, question_answer):
+        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(question_answer))
+        a = self.driver.find_element(*question_answer).text
+        return a
