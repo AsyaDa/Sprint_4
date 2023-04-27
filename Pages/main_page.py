@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -36,19 +37,24 @@ class MainPage:
     question_7_correct_answer = 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'
     question_8_correct_answer = 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
 
+    @allure.step('Открываем браузер Firefox')
     def __init__(self, driver):
         self.driver = driver
 
+    @allure.step('Кликаем на панель с вопросом')
     def click_on_question_panel(self, question_button):
         element = self.driver.find_element(*question_button)
         self.driver.execute_script("arguments[0].click();", element)
 
+    @allure.step('Кликаем на кнопку размещения заказа {order_button}')
     def click_on_order_button(self, order_button):
         self.driver.find_element(*order_button).click()
 
+    @allure.step('Кликаем на кнопку и принимаем использование куки')
     def click_on_accept_cookie_button(self):
         self.driver.find_element(*self.accept_cookie_button).click()
 
+    @allure.step('Получаем текст ответа на вопрос')
     def get_answer_text_from_panel(self, question_answer):
         WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(question_answer))
         a = self.driver.find_element(*question_answer).text
