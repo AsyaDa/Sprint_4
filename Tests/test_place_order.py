@@ -35,5 +35,5 @@ class TestPlaceOrder:
         page.set_arenda_info(period, comment, color, date)
         page.click_on_place_order_button()
         page.click_on_confirm_order_button()
-        t = page.get_place_order_status_text()
-        assert 'Заказ оформлен' in t
+        status_text = page.get_place_order_status_text()
+        assert 'Заказ оформлен' in status_text

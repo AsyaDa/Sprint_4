@@ -92,5 +92,5 @@ class OrderPage:
 
     @allure.step('Получаем статус размещенного заказа')
     def get_place_order_status_text(self):
-        a = self.driver.find_element(*self.order_info_header).text
-        return a
+        element = self.driver.find_element(*self.order_info_header)
+        return element.text

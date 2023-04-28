@@ -60,8 +60,8 @@ class MainPage:
     def get_answer_text_from_panel(self, question_answer):
         bp = BasePage(self.driver)
         bp.wait_visibility_of_element(question_answer)
-        a = self.driver.find_element(*question_answer).text
-        return a
+        element = self.driver.find_element(*question_answer)
+        return element.text
 
     @allure.step('Кликаем на логотип Яндекс')
     def click_on_yandex_logo(self, yandex_logo):
