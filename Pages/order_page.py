@@ -1,7 +1,6 @@
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+from Pages.base_page import BasePage
 
 
 class OrderPage:
@@ -76,7 +75,8 @@ class OrderPage:
         self.driver.find_element(*self.start_date_field).send_keys(start_date)
 
     def set_arenda_info(self, period, comment, color, start_date):
-        WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, './/div[text()="Про аренду"]')))
+        bp = BasePage(self.driver)
+        bp.wait_element(self.header_arenda)
         self.set_arenda_period(period)
         self.set_scooter_color(color)
         self.set_start_date(start_date)

@@ -2,7 +2,6 @@ import pytest
 import allure
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
 from Pages.main_page import MainPage
 from Pages.order_page import OrderPage
 

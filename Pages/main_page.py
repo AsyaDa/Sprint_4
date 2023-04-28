@@ -1,7 +1,6 @@
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+from Pages.base_page import BasePage
 
 
 class MainPage:
@@ -9,6 +8,9 @@ class MainPage:
     order_button_second = [By.XPATH, '//div[@class="Home_FinishButton__1_cWm"]/child::button']
     url = 'https://qa-scooter.praktikum-services.ru/'
     accept_cookie_button = [By.ID, 'rcc-confirm-button']
+    yandex_logo = [By.CLASS_NAME, 'Header_LogoYandex__3TSOI']
+    scooter_logo = [By.CLASS_NAME, 'Header_LogoScooter__3lsAR']
+    yandex_page_content = [By.CLASS_NAME, 'content']
 
     question_1_button = [By.ID, 'accordion__heading-0']
     question_2_button = [By.ID, 'accordion__heading-1']
@@ -56,6 +58,21 @@ class MainPage:
 
     @allure.step('Получаем текст ответа на вопрос')
     def get_answer_text_from_panel(self, question_answer):
-        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(question_answer))
+        bp = BasePage(self.driver)
+        bp.wait_visibility_of_element(question_answer)
         a = self.driver.find_element(*question_answer).text
         return a
+
+    @allure.step('Кликаем на логотип Яндекс')
+    def click_on_yandex_logo(self, yandex_logo):
+        self.driver.find_element(*yandex_logo).click()
+
+    @allure.step('Переключаемся на новое окно в браузере и ждем загрузку страницы Яндекса')
+    def go_to_new_window_with_yandex_and_wait(self):
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        bp = BasePage(self.driver)
+        bp.wait_element(self.yandex_page_content)
+
+    @allure.step('Кликаем на логотип Самокат')
+    def click_on_scooter_logo(self, scooter_logo):
+        self.driver.find_element(*scooter_logo).click()

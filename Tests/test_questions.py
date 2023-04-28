@@ -1,7 +1,6 @@
 import pytest
 import allure
 from Pages.main_page import MainPage
-from Pages.base_page import BasePage
 from Pages.order_page import OrderPage
 
 
@@ -27,8 +26,9 @@ class TestQuestions:
     @allure.title("Проверка перехода по клику на логотип Яндекса")
     def test_go_to_yandex(self, entry):
         self.driver = entry
-        bp = BasePage(self.driver)
-        bp.click_on_yandex_logo(BasePage.yandex_logo)
+        mp = MainPage(self.driver)
+        mp.click_on_yandex_logo(MainPage.yandex_logo)
+        mp.go_to_new_window_with_yandex_and_wait()
         current_url = self.driver.current_url
         assert current_url == 'https://dzen.ru/?yredirect=true'
 
@@ -36,8 +36,8 @@ class TestQuestions:
     def test_go_to_scooter_main_page(self, entry):
         self.driver = entry
         self.driver.get(OrderPage.url_place_order)
-        bp = BasePage(self.driver)
-        bp.click_on_scooter_logo(BasePage.scooter_logo)
+        mp = MainPage(self.driver)
+        mp.click_on_scooter_logo(MainPage.scooter_logo)
         current_url = self.driver.current_url
         assert current_url == MainPage.url
 
