@@ -45,8 +45,8 @@ class MainPage:
 
     @allure.step('Кликаем на панель с вопросом')
     def click_on_question_panel(self, question_button):
-        element = self.driver.find_element(*question_button)
-        self.driver.execute_script("arguments[0].click();", element)
+        bp = BasePage(self.driver)
+        bp.find_and_click_on_element(question_button)
 
     @allure.step('Кликаем на кнопку размещения заказа {order_button}')
     def click_on_order_button(self, order_button):
