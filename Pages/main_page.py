@@ -39,7 +39,6 @@ class MainPage:
     question_7_correct_answer = 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'
     question_8_correct_answer = 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
 
-    @allure.step('Открываем браузер Firefox')
     def __init__(self, driver):
         self.driver = driver
 

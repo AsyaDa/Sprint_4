@@ -20,7 +20,6 @@ class OrderPage:
     confirm_order_button = [By.XPATH, '//button[text()="Да"]']
     order_info_header = [By.XPATH, "//div[contains(@class, 'Order_ModalHeader')]"]
 
-    @allure.step('Открываем браузер Firefox')
     def __init__(self, driver):
         self.driver = driver
 
