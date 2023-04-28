@@ -4,6 +4,5 @@
 /Pages/.pytest_cache/
 /Tests/.pytest_cache/
 /.pytest_cache/
-/allure_results/
 /venv/
 __pycache__
