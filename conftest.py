@@ -8,7 +8,7 @@ url = 'https://qa-scooter.praktikum-services.ru/'
 
 
 @pytest.fixture(scope='function')
-def entry():
+def driver():
     browser = webdriver.Firefox()
     browser.get(url)
     WebDriverWait(browser, 5).until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'Home_HomePage__ZXKIX')))

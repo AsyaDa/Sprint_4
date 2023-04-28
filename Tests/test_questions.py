@@ -17,27 +17,24 @@ class TestQuestions:
         [MainPage.question_7_button, MainPage.question_7_answer, MainPage.question_7_correct_answer],
         [MainPage.question_8_button, MainPage.question_8_answer, MainPage.question_8_correct_answer],
     ])
-    def test_question(self, question_button, question_answer, question_correct_answer, entry):
-        self.driver = entry
-        mp = MainPage(self.driver)
+    def test_question(self, question_button, question_answer, question_correct_answer, driver):
+        mp = MainPage(driver)
         mp.click_on_question_panel(question_button)
         assert mp.get_answer_text_from_panel(question_answer) == question_correct_answer
 
     @allure.title("Проверка перехода по клику на логотип Яндекса")
-    def test_go_to_yandex(self, entry):
-        self.driver = entry
-        mp = MainPage(self.driver)
+    def test_go_to_yandex(self, driver):
+        mp = MainPage(driver)
         mp.click_on_yandex_logo(MainPage.yandex_logo)
         mp.go_to_new_window_with_yandex_and_wait()
-        current_url = self.driver.current_url
+        current_url = driver.current_url
         assert current_url == 'https://dzen.ru/?yredirect=true'
 
     @allure.title("Проверка перехода по клику на логотип Самоката")
-    def test_go_to_scooter_main_page(self, entry):
-        self.driver = entry
-        self.driver.get(OrderPage.url_place_order)
-        mp = MainPage(self.driver)
+    def test_go_to_scooter_main_page(self, driver):
+        driver.get(OrderPage.url_place_order)
+        mp = MainPage(driver)
         mp.click_on_scooter_logo(MainPage.scooter_logo)
-        current_url = self.driver.current_url
+        current_url = driver.current_url
         assert current_url == MainPage.url
 
